@@ -55,13 +55,18 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
     func handleClassifications(request: VNRequest, error: Error?) {
         guard let observations = request.results
             else { print("no results: \(error!)"); return }
+        
+        print(observations)
         let classifications = observations[0...4]
             .flatMap({ $0 as? VNClassificationObservation })
             .filter({ $0.confidence > 0.3 })
             .sorted(by: { $0.confidence > $1.confidence })
             .map {
+
                 (prediction: VNClassificationObservation) -> String in
+                print("encontrado")
                 return "\(round(prediction.confidence * 100 * 100)/100)%: \(prediction.identifier)"
+            
         }
         DispatchQueue.main.async {
             print(classifications.joined(separator: "###"))
@@ -78,6 +83,26 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+            return
+        }
+        var requestOptions:[VNImageOption : Any] = [:]
+        if let cameraIntrinsicData = CMGetAttachment(sampleBuffer, kCMSampleBufferAttachmentKey_CameraIntrinsicMatrix, nil) {
+            requestOptions = [.cameraIntrinsics:cameraIntrinsicData]
+        }
+        
+        guard let value = CGImagePropertyOrientation(rawValue: 1) else {
+            return
+        }
+        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation:value , options: requestOptions)
+        do {
+            try imageRequestHandler.perform(self.requests)
+        } catch {
+            print(error)
+        }
     }
 
 
