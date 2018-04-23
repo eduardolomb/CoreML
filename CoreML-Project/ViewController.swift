@@ -15,7 +15,8 @@ import Alamofire
 class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDelegate {
 
     @IBOutlet weak var uiRecognitionLabel: UILabel?
-    @IBOutlet weak var uiSlider: UISlider?
+
+    @IBOutlet weak var uiProgressView: UIProgressView?
     @IBOutlet weak var uiDownloadLabel: UILabel?
     
     @IBOutlet weak var uiSwitch: UISwitch?
@@ -30,11 +31,15 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
     
     @IBAction func downloadBtnTap(_ sender: Any) {
         self.captureSession.stopRunning()
+        self.cameraLayer.isHidden = true
+        self.uiSwitch?.isOn = false
         downloadModel()
     }
     
     @IBAction func validateSwitchTap(_ sender: UISwitch) {
         if sender.isOn {
+            setupVision()
+            self.cameraLayer.isHidden = false
             self.captureSession.startRunning()
         } else {
             self.captureSession.stopRunning()
@@ -45,11 +50,16 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.layer.addSublayer(self.cameraLayer)
+        self.uiCameraView?.layer.addSublayer(self.cameraLayer)
+        self.cameraLayer.zPosition = -100
+//        self.uiProgressView?.layer.zPosition = 100
+//        self.uiDownloadLabel?.layer.zPosition = 100
+//        self.uiSwitch?.layer.zPosition = 100
+//        self.uiRecognitionLabel?.layer.zPosition = 100
         let videoOutput = AVCaptureVideoDataOutput()
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "MyCameraQueue"))
         self.captureSession.addOutput(videoOutput)
-        uiSlider?.isHidden = true
+        uiProgressView?.isHidden = true
         uiRecognitionLabel?.text = ""
         uiDownloadLabel?.text = ""
         uiSwitch?.setOn(false, animated: false)
@@ -59,7 +69,10 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.cameraLayer.frame = self.view.frame
+        let screenSize = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        let screenHeight = screenSize.height
+        self.cameraLayer.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
     }
     
     
@@ -91,7 +104,7 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
         if(downloaded) {
             let fm = FileManager.default
             let docsurl = try! fm.url(for:.documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-            let myurl = docsurl.appendingPathComponent("inceptionV3.mlmodel")
+            let myurl = docsurl.appendingPathComponent("MobileNet.mlmodel")
             guard let compiledUrl = try? MLModel.compileModel(at: myurl) else {
                 fatalError("ruim")
             }
@@ -118,26 +131,29 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
     //MARK: - Core ML model Downloader
     func downloadModel() {
         
-        let urlString = "https://s3-us-west-2.amazonaws.com/coreml-models/VGG16.mlmodel"
+        let urlString = "https://s3-us-west-2.amazonaws.com/coreml-models/MobileNet.mlmodel"
         let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
         
         Alamofire.download(urlString, to: destination)
             .downloadProgress { progress in
-                
+                self.uiProgressView?.isHidden = false
                 let value = progress.fractionCompleted * 100
                 let rounded = round(value)
-                let final = rounded
-                self.uiDownloadLabel?.text = String(format: "%.1f",final) + "%"
+                
+                self.uiDownloadLabel?.text = String(format: "%.1f",rounded) + "%"
                 
                 print("Download Progress: \(progress.fractionCompleted)")
-                self.uiSlider?.setValue(Float(progress.fractionCompleted), animated: true)
+                
+                self.uiProgressView?.setProgress(Float(progress.fractionCompleted), animated: true)
+               
             
             }
             .responseData { response in
+                self.downloaded = true
                 if let data = response.result.value {
                     print("file downloaded")
                     self.downloaded = true
-                    self.uiSlider?.isHidden = false
+                    self.uiProgressView?.isHidden = false
                 }
         }
 
@@ -167,7 +183,7 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
     
     private lazy var captureSession: AVCaptureSession = {
         let session = AVCaptureSession()
-        session.sessionPreset = AVCaptureSession.Preset.photo
+        session.sessionPreset = AVCaptureSession.Preset.hd1920x1080
         guard
             let backCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
             let input = try? AVCaptureDeviceInput(device: backCamera)
