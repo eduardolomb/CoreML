@@ -17,18 +17,16 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
     @IBOutlet weak var uiRecognitionLabel: UILabel?
 
     @IBOutlet weak var uiProgressView: UIProgressView?
-    @IBOutlet weak var uiDownloadLabel: UILabel?
     
     @IBOutlet weak var uiSwitch: UISwitch?
     @IBOutlet weak var uiCameraView: UIView?
     private var requests = [VNRequest]()
     private lazy var cameraLayer: AVCaptureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
 
-    var downloaded = false
-    
+
+    var fileName = ""
     
     //MARK: - Interface Buttons Functions
-    
     @IBAction func downloadBtnTap(_ sender: Any) {
         self.captureSession.stopRunning()
         self.cameraLayer.isHidden = true
@@ -40,8 +38,10 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
         if sender.isOn {
             setupVision()
             self.cameraLayer.isHidden = false
+            uiProgressView?.isHidden = true
             self.captureSession.startRunning()
         } else {
+            self.cameraLayer.isHidden = true
             self.captureSession.stopRunning()
         }
     }
@@ -52,16 +52,12 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
         super.viewDidLoad()
         self.uiCameraView?.layer.addSublayer(self.cameraLayer)
         self.cameraLayer.zPosition = -100
-//        self.uiProgressView?.layer.zPosition = 100
-//        self.uiDownloadLabel?.layer.zPosition = 100
-//        self.uiSwitch?.layer.zPosition = 100
-//        self.uiRecognitionLabel?.layer.zPosition = 100
+        
         let videoOutput = AVCaptureVideoDataOutput()
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "MyCameraQueue"))
         self.captureSession.addOutput(videoOutput)
         uiProgressView?.isHidden = true
         uiRecognitionLabel?.text = ""
-        uiDownloadLabel?.text = ""
         uiSwitch?.setOn(false, animated: false)
         setupVision()
        
@@ -89,7 +85,6 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
             .map {
 
                 (prediction: VNClassificationObservation) -> String in
-                print("encontrado")
                 return "\(round(prediction.confidence * 100 * 100)/100)%: \(prediction.identifier)"
             
         }
@@ -101,11 +96,13 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
     
     
     func setupVision() {
-        if(downloaded) {
-            let fm = FileManager.default
-            let docsurl = try! fm.url(for:.documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
-            let myurl = docsurl.appendingPathComponent("MobileNet.mlmodel")
-            guard let compiledUrl = try? MLModel.compileModel(at: myurl) else {
+        if(fileChecker()) {
+            let urlString = URL(string: fileName)
+            guard let path = urlString?.path else {
+                return
+            }
+            let url = URL(fileURLWithPath: path)
+            guard let compiledUrl = try? MLModel.compileModel(at: url) else {
                 fatalError("ruim")
             }
             guard let model = try? MLModel(contentsOf: compiledUrl) else {
@@ -140,7 +137,7 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
                 let value = progress.fractionCompleted * 100
                 let rounded = round(value)
                 
-                self.uiDownloadLabel?.text = String(format: "%.1f",rounded) + "%"
+                self.uiRecognitionLabel?.text = String(format: "%.1f",rounded) + "%"
                 
                 print("Download Progress: \(progress.fractionCompleted)")
                 
@@ -148,19 +145,39 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
                
             
             }
-            .responseData { response in
-                self.downloaded = true
-                if let data = response.result.value {
-                    print("file downloaded")
-                    self.downloaded = true
-                    self.uiProgressView?.isHidden = false
+            .response { response in
+                print(response)
+
+                guard let url = response.destinationURL?.absoluteString else {
+                    return
                 }
+                self.fileName = url
+            
         }
 
     }
     
+    
+    func fileChecker() -> Bool{
+        if fileName.isEmpty {
+            return false
+        }
+        
+        let url = URL(string: fileName)
+        guard let path = url?.path else {
+            return false
+        }
+        let fileManager = FileManager.default
+        if fileManager.fileExists(atPath: path) {
+            return true
+        } else {
+            return false
+        }
+        
+    }
+    
+    
     //MARK: - Camera capture delegates
-
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             return

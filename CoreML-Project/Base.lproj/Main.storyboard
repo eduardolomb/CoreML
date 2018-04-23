@@ -28,16 +28,6 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cmv-Zh-DHd">
-                                        <rect key="frame" x="310" y="647" width="55" height="0.0"/>
-                                        <color key="backgroundColor" red="0.91764705879999997" green="0.70588235290000001" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="55" id="pPG-ar-fDg"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TPp-hV-HB8">
                                         <rect key="frame" x="10" y="10" width="108" height="33"/>
                                         <color key="backgroundColor" red="0.91764705879999997" green="0.70588235290000001" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -77,9 +67,7 @@
                                     <constraint firstItem="rCd-NG-Dr0" firstAttribute="leading" secondItem="Ibc-Lv-097" secondAttribute="leading" constant="10" id="YMP-di-z7D"/>
                                     <constraint firstAttribute="bottom" secondItem="rCd-NG-Dr0" secondAttribute="bottom" constant="10" id="au1-JJ-jve"/>
                                     <constraint firstAttribute="trailing" secondItem="YHn-ae-ggw" secondAttribute="trailing" id="oxB-NN-hez"/>
-                                    <constraint firstAttribute="bottom" secondItem="cmv-Zh-DHd" secondAttribute="bottom" id="qBz-NF-gao"/>
                                     <constraint firstItem="pS8-rA-dKO" firstAttribute="top" secondItem="YwC-Hp-b1G" secondAttribute="bottom" id="rw2-GU-S2u"/>
-                                    <constraint firstAttribute="trailing" secondItem="cmv-Zh-DHd" secondAttribute="trailing" constant="10" id="w8r-mt-zyi"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -94,7 +82,6 @@
                     </view>
                     <connections>
                         <outlet property="uiCameraView" destination="Ibc-Lv-097" id="Tf2-vD-l90"/>
-                        <outlet property="uiDownloadLabel" destination="cmv-Zh-DHd" id="5lb-27-es4"/>
                         <outlet property="uiProgressView" destination="YHn-ae-ggw" id="RYv-gS-gA8"/>
                         <outlet property="uiRecognitionLabel" destination="rCd-NG-Dr0" id="Dey-yF-5NY"/>
                         <outlet property="uiSwitch" destination="pS8-rA-dKO" id="Hpg-a5-46Q"/>
