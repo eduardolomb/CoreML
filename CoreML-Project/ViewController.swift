@@ -13,7 +13,7 @@ import Vision
 
 
 class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDelegate {
-    
+
     @IBOutlet weak var uiRecognitionLabel: UILabel?
     
     @IBOutlet weak var uiCameraView: UIView?
@@ -34,7 +34,7 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.uiCameraView?.layer.addSublayer(self.cameraLayer)
+        self.view.layer.addSublayer(self.cameraLayer)
         let videoOutput = AVCaptureVideoDataOutput()
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "MyCameraQueue"))
         self.captureSession.addOutput(videoOutput)
@@ -77,7 +77,7 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.cameraLayer.frame = self.uiCameraView?.bounds ?? .zero
+        self.cameraLayer.frame = self.view.frame
     }
 
     override func didReceiveMemoryWarning() {
@@ -104,6 +104,9 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
             print(error)
         }
     }
+
+
+    
 
 
 }

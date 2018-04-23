@@ -19,28 +19,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ibc-Lv-097">
-                                <rect key="frame" x="0.0" y="20" width="375" height="517"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rCd-NG-Dr0">
+                                        <rect key="frame" x="10" y="616.5" width="355" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" red="0.91764705879999997" green="0.70588235290000001" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rCd-NG-Dr0">
-                                <rect key="frame" x="0.0" y="547" width="375" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="Gd6-eV-hhu"/>
+                                    <constraint firstAttribute="trailing" secondItem="rCd-NG-Dr0" secondAttribute="trailing" constant="10" id="UtN-sP-1PQ"/>
+                                    <constraint firstItem="rCd-NG-Dr0" firstAttribute="leading" secondItem="Ibc-Lv-097" secondAttribute="leading" constant="10" id="YMP-di-z7D"/>
+                                    <constraint firstAttribute="bottom" secondItem="rCd-NG-Dr0" secondAttribute="bottom" constant="10" id="au1-JJ-jve"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rCd-NG-Dr0" secondAttribute="trailing" id="5EA-dp-FI2"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rCd-NG-Dr0" secondAttribute="bottom" constant="20" id="Cc9-2S-7UV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Ibc-Lv-097" secondAttribute="bottom" id="IGd-hv-h2C"/>
                             <constraint firstItem="Ibc-Lv-097" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="QZa-Cc-lfc"/>
                             <constraint firstItem="Ibc-Lv-097" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="WcG-Wd-zX1"/>
-                            <constraint firstItem="rCd-NG-Dr0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="e8c-B7-fbI"/>
                             <constraint firstItem="Ibc-Lv-097" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ptI-CD-Odd"/>
-                            <constraint firstItem="rCd-NG-Dr0" firstAttribute="top" secondItem="Ibc-Lv-097" secondAttribute="bottom" constant="10" id="v8m-ng-31C"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
