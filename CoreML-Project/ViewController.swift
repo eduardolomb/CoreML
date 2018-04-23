@@ -49,6 +49,9 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
         let videoOutput = AVCaptureVideoDataOutput()
         videoOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "MyCameraQueue"))
         self.captureSession.addOutput(videoOutput)
+        uiSlider?.isHidden = true
+        uiRecognitionLabel?.text = ""
+        uiDownloadLabel?.text = ""
         uiSwitch?.setOn(false, animated: false)
         setupVision()
        
@@ -115,7 +118,7 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
     //MARK: - Core ML model Downloader
     func downloadModel() {
         
-        let urlString = "https://rapidwaveinc.com/drone/drone.mp4"
+        let urlString = "https://s3-us-west-2.amazonaws.com/coreml-models/VGG16.mlmodel"
         let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
         
         Alamofire.download(urlString, to: destination)
@@ -134,6 +137,7 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
                 if let data = response.result.value {
                     print("file downloaded")
                     self.downloaded = true
+                    self.uiSlider?.isHidden = false
                 }
         }
 
