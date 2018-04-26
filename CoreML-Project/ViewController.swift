@@ -162,9 +162,7 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
                 let rounded = round(value)
                 
                 self.uiRecognitionLabel?.text = String(format: "%.1f",rounded) + "%"
-                
                 print("Download Progress: \(progress.fractionCompleted)")
-                
                 self.uiProgressView?.setProgress(Float(progress.fractionCompleted), animated: true)
                
             
