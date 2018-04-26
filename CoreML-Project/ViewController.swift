@@ -15,18 +15,17 @@ import Alamofire
 class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDelegate {
 
     @IBOutlet weak var uiRecognitionLabel: UILabel?
-
     @IBOutlet weak var uiDownloadBtn: UIButton?
     @IBOutlet weak var uiProgressView: UIProgressView?
-    
     @IBOutlet weak var uiSwitch: UISwitch?
     @IBOutlet weak var uiCameraView: UIView?
+    
+    
     private var requests = [VNRequest]()
     private lazy var cameraLayer: AVCaptureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
 
-
     var fileName = ""
-    
+    let url = "https://s3-us-west-2.amazonaws.com/coreml-models/MobileNet.mlmodel"
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -153,10 +152,10 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
     //MARK: - Core ML model Downloader
     func downloadModel() {
         
-        let urlString = "https://s3-us-west-2.amazonaws.com/coreml-models/MobileNet.mlmodel"
+
         let destination = DownloadRequest.suggestedDownloadDestination(for: .documentDirectory)
         
-        Alamofire.download(urlString, to: destination)
+        Alamofire.download(url, to: destination)
             .downloadProgress { progress in
                 self.uiProgressView?.isHidden = false
                 let value = progress.fractionCompleted * 100
