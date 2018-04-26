@@ -68,6 +68,21 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
         let screenSize = UIScreen.main.bounds
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
+        
+        let app = UIApplication.shared
+        switch app.statusBarOrientation {
+        case .portrait:
+            cameraLayer.connection?.videoOrientation = AVCaptureVideoOrientation.portrait;
+        case .portraitUpsideDown:
+            cameraLayer.connection?.videoOrientation = AVCaptureVideoOrientation.portraitUpsideDown;
+        case .landscapeLeft:
+            cameraLayer.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeLeft;
+        case .landscapeRight:
+            cameraLayer.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeRight;
+        default:
+            cameraLayer.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeRight;
+        }
+        
         self.cameraLayer.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
     }
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		66AFC61D20922AAA00C373DF /* imageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 66AFC61C20922AAA00C373DF /* imageClassifier.mlmodel */; };
 		66C017AF2087C3C000801CBE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C017AE2087C3C000801CBE /* AppDelegate.swift */; };
 		66C017B12087C3C000801CBE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C017B02087C3C000801CBE /* ViewController.swift */; };
 		66C017B42087C3C000801CBE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66C017B22087C3C000801CBE /* Main.storyboard */; };
@@ -14,7 +15,6 @@
 		66C017B92087C3C000801CBE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66C017B72087C3C000801CBE /* LaunchScreen.storyboard */; };
 		66C017C42087C3C100801CBE /* CoreML_ProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C017C32087C3C100801CBE /* CoreML_ProjectTests.swift */; };
 		66C017CF2087C3C100801CBE /* CoreML_ProjectUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66C017CE2087C3C100801CBE /* CoreML_ProjectUITests.swift */; };
-		66C0181F208A83F900801CBE /* imageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 66C0181E208A83F900801CBE /* imageClassifier.mlmodel */; };
 		6ADBDF3CAEF3B25D35A4AC07 /* Pods_CoreML_ProjectUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C257C61A5D54CF7D8763A54 /* Pods_CoreML_ProjectUITests.framework */; };
 		DF15566359DC962C42FA1CB9 /* Pods_CoreML_ProjectTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 785B135222F66776C766A98A /* Pods_CoreML_ProjectTests.framework */; };
 		EADD8606F0B1784796F417F0 /* Pods_CoreML_Project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90B131A77C9F29FA8A8784DE /* Pods_CoreML_Project.framework */; };
@@ -40,6 +40,7 @@
 /* Begin PBXFileReference section */
 		1C257C61A5D54CF7D8763A54 /* Pods_CoreML_ProjectUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoreML_ProjectUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E6CB1AA281F7640C20A3DC5 /* Pods-CoreML-ProjectUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreML-ProjectUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoreML-ProjectUITests/Pods-CoreML-ProjectUITests.release.xcconfig"; sourceTree = "<group>"; };
+		66AFC61C20922AAA00C373DF /* imageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = imageClassifier.mlmodel; sourceTree = "<group>"; };
 		66C017AB2087C3C000801CBE /* CoreML-Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CoreML-Project.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66C017AE2087C3C000801CBE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		66C017B02087C3C000801CBE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -53,7 +54,6 @@
 		66C017CA2087C3C100801CBE /* CoreML-ProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CoreML-ProjectUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66C017CE2087C3C100801CBE /* CoreML_ProjectUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreML_ProjectUITests.swift; sourceTree = "<group>"; };
 		66C017D02087C3C100801CBE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		66C0181E208A83F900801CBE /* imageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = imageClassifier.mlmodel; sourceTree = "<group>"; };
 		785B135222F66776C766A98A /* Pods_CoreML_ProjectTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoreML_ProjectTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DDBF21C7A0FE6F9DAD95976 /* Pods-CoreML-ProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreML-ProjectTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CoreML-ProjectTests/Pods-CoreML-ProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		90B131A77C9F29FA8A8784DE /* Pods_CoreML_Project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoreML_Project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -121,7 +121,6 @@
 				66C017C22087C3C100801CBE /* CoreML-ProjectTests */,
 				66C017CD2087C3C100801CBE /* CoreML-ProjectUITests */,
 				66C017AC2087C3C000801CBE /* Products */,
-				66C0181E208A83F900801CBE /* imageClassifier.mlmodel */,
 				0CC1BB7AB8769DA9AED2B0EB /* Pods */,
 				21B0E5BBD7EDF4BF842744A4 /* Frameworks */,
 			);
@@ -140,6 +139,7 @@
 		66C017AD2087C3C000801CBE /* CoreML-Project */ = {
 			isa = PBXGroup;
 			children = (
+				66AFC61C20922AAA00C373DF /* imageClassifier.mlmodel */,
 				66C017AE2087C3C000801CBE /* AppDelegate.swift */,
 				66C017B02087C3C000801CBE /* ViewController.swift */,
 				66C017B22087C3C000801CBE /* Main.storyboard */,
@@ -463,7 +463,7 @@
 			files = (
 				66C017B12087C3C000801CBE /* ViewController.swift in Sources */,
 				66C017AF2087C3C000801CBE /* AppDelegate.swift in Sources */,
-				66C0181F208A83F900801CBE /* imageClassifier.mlmodel in Sources */,
+				66AFC61D20922AAA00C373DF /* imageClassifier.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
