@@ -16,6 +16,7 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
 
     @IBOutlet weak var uiRecognitionLabel: UILabel?
 
+    @IBOutlet weak var uiDownloadBtn: UIButton?
     @IBOutlet weak var uiProgressView: UIProgressView?
     
     @IBOutlet weak var uiSwitch: UISwitch?
@@ -26,11 +27,19 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
 
     var fileName = ""
     
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     //MARK: - Interface Buttons Functions
-    @IBAction func downloadBtnTap(_ sender: Any) {
+    @IBAction func downloadBtnTap(_ sender: UIButton) {
+        
+        sender.isUserInteractionEnabled = false
         self.captureSession.stopRunning()
         self.cameraLayer.isHidden = true
         self.uiSwitch?.isOn = false
+        self.uiSwitch?.isUserInteractionEnabled = false
+        
         downloadModel()
     }
     
@@ -42,6 +51,7 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
             self.captureSession.startRunning()
         } else {
             self.cameraLayer.isHidden = true
+            self.uiRecognitionLabel?.text = ""
             self.captureSession.stopRunning()
         }
     }
@@ -162,7 +172,8 @@ class ViewController: UIViewController,AVCaptureVideoDataOutputSampleBufferDeleg
             }
             .response { response in
                 print(response)
-
+                self.uiDownloadBtn?.isUserInteractionEnabled = true
+                self.uiSwitch?.isUserInteractionEnabled = true
                 guard let url = response.destinationURL?.absoluteString else {
                     return
                 }

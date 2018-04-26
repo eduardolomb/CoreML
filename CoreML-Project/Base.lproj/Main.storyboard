@@ -29,8 +29,11 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TPp-hV-HB8">
-                                        <rect key="frame" x="10" y="10" width="108" height="33"/>
+                                        <rect key="frame" x="10" y="10" width="108" height="21"/>
                                         <color key="backgroundColor" red="0.91764705879999997" green="0.70588235290000001" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="hjz-oa-YQT"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <state key="normal" title="Update model"/>
                                         <connections>
@@ -38,7 +41,7 @@
                                         </connections>
                                     </button>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pS8-rA-dKO">
-                                        <rect key="frame" x="593" y="31" width="51" height="31"/>
+                                        <rect key="frame" x="593" y="41" width="51" height="31"/>
                                         <connections>
                                             <action selector="validateSwitchTap:" destination="BYZ-38-t0r" eventType="valueChanged" id="Y9X-O4-BRo"/>
                                         </connections>
@@ -46,6 +49,9 @@
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test model" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YwC-Hp-b1G">
                                         <rect key="frame" x="573" y="10" width="84" height="21"/>
                                         <color key="backgroundColor" red="0.91764705879999997" green="0.70588235290000001" blue="0.050980392159999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="DJl-nh-FLh"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -67,7 +73,7 @@
                                     <constraint firstItem="rCd-NG-Dr0" firstAttribute="leading" secondItem="Ibc-Lv-097" secondAttribute="leading" constant="10" id="YMP-di-z7D"/>
                                     <constraint firstAttribute="bottom" secondItem="rCd-NG-Dr0" secondAttribute="bottom" constant="10" id="au1-JJ-jve"/>
                                     <constraint firstAttribute="trailing" secondItem="YHn-ae-ggw" secondAttribute="trailing" id="oxB-NN-hez"/>
-                                    <constraint firstItem="pS8-rA-dKO" firstAttribute="top" secondItem="YwC-Hp-b1G" secondAttribute="bottom" id="rw2-GU-S2u"/>
+                                    <constraint firstItem="pS8-rA-dKO" firstAttribute="top" secondItem="YwC-Hp-b1G" secondAttribute="bottom" constant="10" id="rw2-GU-S2u"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -82,6 +88,7 @@
                     </view>
                     <connections>
                         <outlet property="uiCameraView" destination="Ibc-Lv-097" id="Tf2-vD-l90"/>
+                        <outlet property="uiDownloadBtn" destination="TPp-hV-HB8" id="xYZ-p3-1LL"/>
                         <outlet property="uiProgressView" destination="YHn-ae-ggw" id="RYv-gS-gA8"/>
                         <outlet property="uiRecognitionLabel" destination="rCd-NG-Dr0" id="Dey-yF-5NY"/>
                         <outlet property="uiSwitch" destination="pS8-rA-dKO" id="Hpg-a5-46Q"/>
